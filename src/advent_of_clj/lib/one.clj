@@ -18,12 +18,12 @@
   [l accumulator seen iterations]
   (cond
 ;;    (> iterations 1000) seen ;; for debugging
-    (.contains seen accumulator) accumulator
+    (contains? seen accumulator) accumulator
     :else (recur (rotate l) (+ accumulator (first l)) (conj seen accumulator) (+ 1 iterations))))
 
 (defn solve-part-two
   [l]
-  (solve-part-two-recursive l 0 [] 0))
+  (solve-part-two-recursive l 0 #{} 0))
 
 ;; debugging test input
 ;; (solve-part-two [1 -1])
