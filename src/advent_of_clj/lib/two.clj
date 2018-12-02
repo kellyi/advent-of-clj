@@ -26,17 +26,28 @@
         threes (filter has-three-repeated-elements l)]
     (* (count twos) (count threes))))
 
-(defn solve-part-two
-  [l]
-  "part two")
+(defn remove-at-position
+  [l position]
+  (concat (take position l) (drop (+ 1 position) l)))
 
-;; (def example-one "abcdef")
-;; (def example-two "bababc")
-;; (def example-three "abbcde")
-;; (def example-four "abcccd")
-;; (def example-five "aabcdd")
-;; (def example-six "abcdee")
-;; (def example-seven "ababab")
+(defn maybe-get-duplicate
+  [l]
+  (first (first (filter (fn [[k v]] (= 2 v)) (frequencies l)))))
+
+(defn solve-part-two-loop
+  [l iteration stop]
+  (cond
+    (= iteration stop) "not found"
+    :else (let [drop-element (fn [x] (remove-at-position x iteration))
+                adjusted-elements (map drop-element l)
+                dup (maybe-get-duplicate adjusted-elements)]
+        (cond
+          (some? dup) (apply str dup)
+          :else (recur l (+ 1 iteration) stop)))))
+
+(defn solve-part-two
+  [[h :as l]]
+  (solve-part-two-loop l 0 (count l)))
 
 (defn solve
   []
