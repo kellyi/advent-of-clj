@@ -1,5 +1,6 @@
 (ns advent-of-clj.lib.two
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.string]))
 
 (declare solve-part-one solve-part-two)
 

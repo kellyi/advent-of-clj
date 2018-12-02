@@ -1,5 +1,6 @@
 (ns advent-of-clj.lib.one
-  (:gen-class))
+  (:gen-class)
+  (:require [clojure.string]))
 
 (defn create-numbers
   []
