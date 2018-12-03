@@ -42,9 +42,9 @@
     :else (let [drop-element (fn [x] (remove-at-position x iteration))
                 adjusted-elements (map drop-element l)
                 dup (maybe-get-duplicate adjusted-elements)]
-        (cond
-          (some? dup) (apply str dup)
-          :else (recur l (+ 1 iteration) stop)))))
+            (cond
+              (some? dup) (apply str dup)
+              :else (recur l (+ 1 iteration) stop)))))
 
 (defn solve-part-two
   [[h :as l]]

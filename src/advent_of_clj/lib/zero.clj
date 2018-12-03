@@ -5,7 +5,7 @@
 (defn create-numbers
   []
   (let [input (clojure.string/split (clojure.string/trim-newline (slurp "data/zero.txt")) #"")]
-  (map (fn [x] (read-string x)) input)))
+    (map (fn [x] (read-string x)) input)))
 
 (defn sum-adjacent-identical-recursive
   [[head nxt & tail] final accumulator]

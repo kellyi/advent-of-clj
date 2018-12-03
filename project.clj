@@ -3,4 +3,5 @@
   :dependencies [[org.clojure/clojure "1.9.0"]]
   :main ^:skip-aot advent-of-clj.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :plugins [[lein-cljfmt "0.6.2"]])
