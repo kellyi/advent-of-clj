@@ -7,6 +7,12 @@ Programming puzzles in Clojure
 - [OpenJDK 8.x+](https://openjdk.java.net) (or compatible Java)
 - [Leiningen](https://leiningen.org/)
 
+## Setup
+
+```sh
+lein install
+```
+
 ## Usage
 
 ```sh

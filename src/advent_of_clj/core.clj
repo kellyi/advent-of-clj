@@ -3,7 +3,8 @@
   (:require [advent-of-clj.lib.zero]
             [advent-of-clj.lib.one]
             [advent-of-clj.lib.two]
-            [advent-of-clj.lib.three]))
+            [advent-of-clj.lib.three]
+            [advent-of-clj.lib.four]))
 
 (defn not-found
   []
@@ -25,6 +26,10 @@
   []
   (advent-of-clj.lib.three/solve))
 
+(defn solve-four
+  []
+  (advent-of-clj.lib.four/solve))
+
 (defn -main
   [& args]
   (cond
@@ -32,4 +37,5 @@
     (.contains args "one") (solve-one)
     (.contains args "two") (solve-two)
     (.contains args "three") (solve-three)
+    (.contains args "four") (solve-four)
     :else (not-found)))
