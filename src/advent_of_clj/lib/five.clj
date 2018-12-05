@@ -17,7 +17,7 @@
                           (clojure.string/lower-case two))]
     (and not-same-case char-are-equal)))
 
-(defn solve-part-one-loop
+(defn count-fully-reacted-polymer
   [[f s & tail] prior]
   (cond
     (nil? s) (count (conj prior f))
@@ -26,13 +26,23 @@
 
 (defn solve-part-one
   [input]
-  (solve-part-one-loop input []))
+  (count-fully-reacted-polymer input []))
 
-(def example-input "dabAcCaCBAcCcaDA")
-(solve-part-one example-input)
+(defn remove-char-from-string
+  [c s]
+  (as-> s input
+    (clojure.string/replace input c "")
+    (clojure.string/replace input (clojure.string/upper-case c) "")))
+
+(defn solve-part-two
+  [input]
+  (let [characters (map (fn [s] (str s)) (map char (range 97 123)))
+        test-strings (map (fn [c] (remove-char-from-string c input)) characters)
+        polymers (map (fn [s] (count-fully-reacted-polymer s [])) test-strings)]
+    (apply min polymers)))
 
 (defn solve
   []
   (let [n (read-input)]
     (do (println (str "part one: " (solve-part-one n)))
-        (println (str "part two: " nil)))))
+        (println (str "part two: " (solve-part-two n))))))
