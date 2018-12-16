@@ -50,13 +50,6 @@
                       (clj-time.format/parse custom-formatter s))]
     date-string))
 
-;; (defn date-comparison
-;;   [{date-one :time} {date-two :time}]
-;;   (cond
-;;     (clj-time.core/before? date-one date-two) -1
-;;     (clj-time.core/after? date-one date-two) 1
-;;     :else 0))
-
 (defn sort-entries-by-date
   [l]
   (sort-by :time l))
@@ -79,18 +72,6 @@
                 (clojure.string/split-lines file)
                 (map format-input file))]
     input))
-
-(defn get-minute-from-entry
-  [[date]]
-  (clj-time.core/minute date))
-
-(defn get-hour-from-entry
-  [[date]]
-  (clj-time.core/hour date))
-
-(defn get-day-from-entry
-  [[date]]
-  (clj-time.core/day date))
 
 (defn get-next-midnight
   "Given a date time entry, get the next midnight"
@@ -180,8 +161,43 @@
     (find-most-minutes entries)
     (multiply-guard-by-most-frequent-minute entries)))
 
+(defn maybe-repeat-minutes
+  [min]
+  (cond
+    (empty? min) '()
+    :else (apply repeat min)))
+
+(defn get-most-frequent-minutes
+  [minutes-list]
+  (->> minutes-list
+       frequencies
+       (sort-by val)
+       last
+       reverse
+       maybe-repeat-minutes))
+
+(defn map-minutes-to-most-frequent-minute
+  [entries]
+  (map (fn [[k v]] [(get-most-frequent-minutes v) k]) entries))
+
+(defn find-guard-with-most-repeated-minutes
+  [entries]
+  (reduce (fn [[last-minutes last-guard] [next-minutes next-guard]]
+            (cond
+              (< (count last-minutes) (count next-minutes)) [next-minutes next-guard]
+              :else [last-minutes last-guard])) entries))
+
+(defn solve-two
+  [input]
+  (as-> input entries
+    (sort-entries-by-date entries)
+    (reduce-entries-by-guard entries)
+    (map-minutes-to-most-frequent-minute entries)
+    (find-guard-with-most-repeated-minutes entries)
+    (* (-> entries first first) (read-string (last entries)))))
+
 (defn solve
   []
   (let [n (read-input)]
     (do (println (str "part one: " (solve-one n)))
-        (println (str "part two: " nil)))))
+        (println (str "part two: " (solve-two n))))))
