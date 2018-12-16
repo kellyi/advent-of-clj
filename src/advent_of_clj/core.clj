@@ -5,8 +5,9 @@
             [advent-of-clj.lib.two :as two]
             [advent-of-clj.lib.three :as three]
             [advent-of-clj.lib.four :as four]
-            [advent-of-clj.lib.five :as five]))
-;;            [advent-of-clj.lib.six :as six]))
+            [advent-of-clj.lib.five :as five]
+            ;;            [advent-of-clj.lib.six :as six]))
+            [advent-of-clj.lib.seven :as seven]))
 
 (defn -main
   [& args]
@@ -18,5 +19,6 @@
       (contains? argset "three") (three/solve)
       (contains? argset "four") (four/solve)
       (contains? argset "five") (five/solve)
-;;      (contains? argset "six") (six/solve)
+      ;;      (contains? argset "six") (six/solve)
+      (contains? argset "seven") (seven/solve)
       :else (println "not found"))))
